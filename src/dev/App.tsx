@@ -206,34 +206,6 @@ export const App = () => {
           </InputGroup>
         </Container>
       </Section>
-
-      {/* Placeholders for external components from the original example */}
-      <Section>
-        <Container className="rounded-xl bg-base-200 p-6">
-          <Heading level="h3">LogoBackground</Heading>
-          <Typography palette="weaker">
-            Placeholder for @components/LogoBackground from the source project.
-          </Typography>
-        </Container>
-      </Section>
-
-      <Section>
-        <Container className="rounded-xl bg-base-200 p-6">
-          <Heading level="h3">NavDemo</Heading>
-          <Typography palette="weaker">
-            Placeholder for @components/NavDemo from the source project.
-          </Typography>
-        </Container>
-      </Section>
-
-      <Section palette="base">
-        <Container className="rounded-xl bg-base-100 p-6">
-          <Heading level="h3">ColorPalette</Heading>
-          <Typography palette="weaker">
-            Placeholder for @components/ColorPalette from the source project.
-          </Typography>
-        </Container>
-      </Section>
     </Page>
   );
 };
