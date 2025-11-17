@@ -1,6 +1,11 @@
 import React, { forwardRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import NextLink from "next/link";
+import {
+  type PolymorphicComponentProps,
+  type PolymorphicComponentPropsWithRef,
+  type PolymorphicForwardRefComponent,
+  type PolymorphicRef,
+} from "../../types/polymorphic";
 
 const NavLinkStyles = tv({
   base: [
@@ -21,19 +26,26 @@ const NavLinkStyles = tv({
 
 type NavLinkVariants = VariantProps<typeof NavLinkStyles>;
 
-export type NavLinkProps = React.ComponentPropsWithoutRef<typeof NextLink> &
-  NavLinkVariants;
+type NavLinkProps<C extends React.ElementType = "a"> =
+  PolymorphicComponentPropsWithRef<C, NavLinkVariants>;
 
-export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
-  ({ className, isActive, ...props }, ref) => {
-    return (
-      <NextLink
-        ref={ref}
-        className={NavLinkStyles({ isActive, className })}
-        {...props}
-      />
-    );
-  }
-);
+type NavLinkComponent = PolymorphicForwardRefComponent<
+  "a",
+  NavLinkVariants
+>;
+
+export const NavLink = forwardRef(function NavLink<
+  C extends React.ElementType = "a"
+>({ className, isActive, component, ...props }: NavLinkProps<C>, ref: React.ForwardedRef<unknown>) {
+  const Component = component ?? "a";
+
+  return (
+    <Component
+      ref={ref as PolymorphicRef<C>}
+      className={NavLinkStyles({ isActive, className })}
+      {...props}
+    />
+  );
+}) as NavLinkComponent;
 
 NavLink.displayName = "NavLink";

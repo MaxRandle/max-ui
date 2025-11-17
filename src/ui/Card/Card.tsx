@@ -1,6 +1,11 @@
 import React, { forwardRef, JSX } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import NextLink from "next/link";
+import {
+  type PolymorphicComponentProps,
+  type PolymorphicComponentPropsWithRef,
+  type PolymorphicForwardRefComponent,
+  type PolymorphicRef,
+} from "../../types/polymorphic";
 
 const CardStyles = tv({
   base: "rounded-lg overflow-hidden",
@@ -69,20 +74,29 @@ const CardLinkStyles = tv({
   ],
 });
 
-export type CardLinkProps = React.ComponentPropsWithoutRef<typeof NextLink> &
-  CardVariants;
+type CardLinkProps<C extends React.ElementType = "a"> =
+  PolymorphicComponentPropsWithRef<C, CardVariants>;
 
-export const CardLink = forwardRef<
-  React.ComponentRef<typeof NextLink>,
-  CardLinkProps
->(({ className, palette, elevation, ...props }, ref) => {
+type CardLinkComponent = PolymorphicForwardRefComponent<
+  "a",
+  CardVariants
+>;
+
+export const CardLink = forwardRef(function CardLink<
+  C extends React.ElementType = "a"
+>(
+  { className, palette, elevation, component, ...props }: CardLinkProps<C>,
+  ref: React.ForwardedRef<unknown>
+) {
+  const Component = component ?? "a";
+
   return (
-    <NextLink
-      ref={ref}
+    <Component
+      ref={ref as PolymorphicRef<C>}
       className={CardLinkStyles({ palette, elevation, className })}
       {...props}
     />
   );
-});
+}) as CardLinkComponent;
 
 CardLink.displayName = "CardLink";

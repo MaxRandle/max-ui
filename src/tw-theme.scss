@@ -1,0 +1,185 @@
+@import "tailwindcss";
+@import "./design-system/colors/periwinkle.scss";
+@import "./design-system/colors/pearl.scss";
+@import "./design-system/colors/emerald.scss";
+@import "./design-system/colors/sky.scss";
+@import "./design-system/colors/amber.scss";
+@import "./design-system/colors/milano-red.scss";
+
+@theme {
+  --color-base-100: var(--pearl-100);
+  --color-base-200: var(--pearl-200);
+  --color-base-300: var(--pearl-300);
+  --color-base-400: var(--pearl-400);
+  --color-base-500: var(--pearl-500);
+  --color-base-600: var(--pearl-600);
+  --color-base-700: var(--pearl-700);
+  --color-base-800: var(--pearl-800);
+  --color-base-900: var(--pearl-900);
+  --color-base-1000: var(--pearl-1000);
+  --color-base-1100: var(--pearl-1100);
+  --color-base-1200: var(--pearl-1200);
+  --color-base-1300: var(--pearl-1300);
+
+  --color-primary-100: var(--periwinkle-100);
+  --color-primary-200: var(--periwinkle-200);
+  --color-primary-300: var(--periwinkle-300);
+  --color-primary-400: var(--periwinkle-400);
+  --color-primary-500: var(--periwinkle-500);
+  --color-primary-600: var(--periwinkle-600);
+  --color-primary-700: var(--periwinkle-700);
+  --color-primary-800: var(--periwinkle-800);
+  --color-primary-900: var(--periwinkle-900);
+  --color-primary-1000: var(--periwinkle-1000);
+  --color-primary-1100: var(--periwinkle-1100);
+  --color-primary-1200: var(--periwinkle-1200);
+  --color-primary-1300: var(--periwinkle-1300);
+
+  --color-success-100: var(--emerald-100);
+  --color-success-200: var(--emerald-200);
+  --color-success-300: var(--emerald-300);
+  --color-success-400: var(--emerald-400);
+  --color-success-500: var(--emerald-500);
+  --color-success-600: var(--emerald-600);
+  --color-success-700: var(--emerald-700);
+  --color-success-800: var(--emerald-800);
+  --color-success-900: var(--emerald-900);
+  --color-success-1000: var(--emerald-1000);
+  --color-success-1100: var(--emerald-1100);
+  --color-success-1200: var(--emerald-1200);
+  --color-success-1300: var(--emerald-1300);
+
+  --color-info-100: var(--sky-100);
+  --color-info-200: var(--sky-200);
+  --color-info-300: var(--sky-300);
+  --color-info-400: var(--sky-400);
+  --color-info-500: var(--sky-500);
+  --color-info-600: var(--sky-600);
+  --color-info-700: var(--sky-700);
+  --color-info-800: var(--sky-800);
+  --color-info-900: var(--sky-900);
+  --color-info-1000: var(--sky-1000);
+  --color-info-1100: var(--sky-1100);
+  --color-info-1200: var(--sky-1200);
+  --color-info-1300: var(--sky-1300);
+
+  --color-warning-100: var(--amber-100);
+  --color-warning-200: var(--amber-200);
+  --color-warning-300: var(--amber-300);
+  --color-warning-400: var(--amber-400);
+  --color-warning-500: var(--amber-500);
+  --color-warning-600: var(--amber-600);
+  --color-warning-700: var(--amber-700);
+  --color-warning-800: var(--amber-800);
+  --color-warning-900: var(--amber-900);
+  --color-warning-1000: var(--amber-1000);
+  --color-warning-1100: var(--amber-1100);
+  --color-warning-1200: var(--amber-1200);
+  --color-warning-1300: var(--amber-1300);
+
+  --color-danger-100: var(--milano-red-100);
+  --color-danger-200: var(--milano-red-200);
+  --color-danger-300: var(--milano-red-300);
+  --color-danger-400: var(--milano-red-400);
+  --color-danger-500: var(--milano-red-500);
+  --color-danger-600: var(--milano-red-600);
+  --color-danger-700: var(--milano-red-700);
+  --color-danger-800: var(--milano-red-800);
+  --color-danger-900: var(--milano-red-900);
+  --color-danger-1000: var(--milano-red-1000);
+  --color-danger-1100: var(--milano-red-1100);
+  --color-danger-1200: var(--milano-red-1200);
+  --color-danger-1300: var(--milano-red-1300);
+
+  --shadow-glow-sm: 0 0 15px -5px rgba(255, 255, 255, 0.08);
+  --shadow-glow-md: 0 0 25px -2px rgba(255, 255, 255, 0.08);
+}
+
+:root {
+  --background: var(--color-base-100);
+  --foreground: var(--color-base-1300);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-base-1300);
+    --foreground: var(--color-base-100);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@utility ring-primary {
+  --focus-ring-color: var(--color-primary-400);
+  --focus-border-color: var(--color-primary-700);
+  box-shadow:
+    0 0 0 1px inset var(--focus-border-color),
+    0 0 0 4px var(--focus-ring-color);
+
+  @media (prefers-color-scheme: dark) {
+    --focus-ring-color: var(--color-primary-900);
+    --focus-border-color: var(--color-primary-300);
+    box-shadow: 0 0 6px 6px var(--focus-ring-color);
+  }
+
+  outline: none;
+  border-width: 1px;
+  border-color: var(--focus-border-color);
+}
+
+@utility ring-primary-solid {
+  --focus-ring-color: var(--color-primary-400);
+  --focus-border-color: var(--color-primary-100);
+  box-shadow:
+    0 0 0 1px inset var(--focus-border-color),
+    0 0 0 4px var(--focus-ring-color);
+
+  @media (prefers-color-scheme: dark) {
+    --focus-ring-color: var(--color-primary-900);
+    --focus-border-color: var(--color-primary-300);
+    box-shadow: 0 0 6px 6px var(--focus-ring-color);
+  }
+
+  border-color: var(--focus-border-color);
+  outline: none;
+  border-width: 1px;
+}
+
+@utility ring-danger {
+  --focus-ring-color: var(--color-danger-400);
+  --focus-border-color: var(--color-danger-700);
+  box-shadow:
+    0 0 0 1px inset var(--focus-border-color),
+    0 0 0 4px var(--focus-ring-color);
+
+  @media (prefers-color-scheme: dark) {
+    --focus-ring-color: var(--color-danger-900);
+    --focus-border-color: var(--color-danger-300);
+    box-shadow: 0 0 6px 6px var(--focus-ring-color);
+  }
+
+  outline: none;
+  border-width: 1px;
+  border-color: var(--focus-border-color);
+}
+
+@utility ring-danger-solid {
+  --focus-ring-color: var(--color-danger-400);
+  --focus-border-color: var(--color-danger-100);
+  box-shadow:
+    0 0 0 1px inset var(--focus-border-color),
+    0 0 0 4px var(--focus-ring-color);
+
+  @media (prefers-color-scheme: dark) {
+    --focus-ring-color: var(--color-danger-900);
+    --focus-border-color: var(--color-danger-300);
+    box-shadow: 0 0 6px 6px var(--focus-ring-color);
+  }
+
+  outline: none;
+  border-width: 1px;
+  border-color: var(--focus-border-color);
+}

@@ -1,6 +1,10 @@
 import React, { forwardRef, JSX } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import NextLink from "next/link";
+import {
+  type PolymorphicComponentPropsWithRef,
+  type PolymorphicForwardRefComponent,
+  type PolymorphicRef,
+} from "../../types/polymorphic";
 
 const ButtonStyles = tv({
   base: [
@@ -88,22 +92,37 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-export type ButtonStyleLinkProps = React.ComponentPropsWithoutRef<
-  typeof NextLink
-> &
-  ButtonVariants;
+type ButtonStyleLinkProps<C extends React.ElementType = "a"> =
+  PolymorphicComponentPropsWithRef<C, ButtonVariants>;
 
-export const ButtonStyleLink = forwardRef<
-  React.ComponentRef<typeof NextLink>,
-  ButtonStyleLinkProps
->(({ className, intent, size, disabled, ...props }, ref) => {
+type ButtonStyleLinkComponent = PolymorphicForwardRefComponent<
+  "a",
+  ButtonVariants
+>;
+
+export const ButtonStyleLink = forwardRef(function ButtonStyleLink<
+  C extends React.ElementType = "a"
+>(
+  {
+    className,
+    intent,
+    size,
+    disabled,
+    component,
+    ...props
+  }: ButtonStyleLinkProps<C>,
+  ref: React.ForwardedRef<unknown>
+) {
+  const Component = component ?? "a";
+
   return (
-    <NextLink
-      ref={ref}
+    <Component
+      ref={ref as PolymorphicRef<C>}
       className={ButtonStyles({ intent, size, disabled, className })}
+      aria-disabled={disabled}
       {...props}
     />
   );
-});
+}) as ButtonStyleLinkComponent;
 
 ButtonStyleLink.displayName = "ButtonStyleLink";

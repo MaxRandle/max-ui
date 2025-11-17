@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist/types",
+    "rootDir": "src",
+    "noEmit": false,
+    "moduleResolution": "Node",
+    "module": "ESNext",
+    "stripInternal": true,
+    "jsx": "react-jsx",
+    "types": []
+  },
+  "include": ["src"],
+  "exclude": ["src/dev"]
+}

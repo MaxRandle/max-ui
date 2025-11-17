@@ -1,6 +1,5 @@
 import React, { forwardRef, JSX } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import NextImage, { ImageProps as NextImageProps } from "next/image";
 
 const AvatarStyles = tv({
   base: [
@@ -38,28 +37,44 @@ const AvatarStyles = tv({
 
 type AvatarVariants = VariantProps<typeof AvatarStyles>;
 
+type AvatarImageProps = Omit<
+  React.ImgHTMLAttributes<HTMLImageElement>,
+  "src" | "alt"
+>;
+
 export type AvatarProps = Omit<JSX.IntrinsicElements["div"], "children"> &
   AvatarVariants & {
     /**
      * @summary text to be rendered in place of an image
      */
     fallback: string;
-  } & Partial<Pick<NextImageProps, "src" | "priority">>;
+    src?: string;
+    alt?: string;
+    priority?: boolean;
+    imageProps?: AvatarImageProps;
+  };
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
-  ({ src, fallback, className, size, priority, ...props }, ref) => {
+  (
+    { src, fallback, className, size, priority, alt, imageProps, ...props },
+    ref
+  ) => {
     const imageSize = (size === "sm" ? 48 : size === "md" ? 64 : 80) * 2; // double for resolution
+    const { loading, ...restImageProps } = imageProps ?? {};
+    const resolvedLoading = priority ? "eager" : loading;
+    const altText = alt ?? fallback;
 
     return (
       <div ref={ref} className={AvatarStyles({ size, className })} {...props}>
         {src ? (
-          <NextImage
+          <img
             className="aspect-square h-full w-full"
             src={src}
-            alt={fallback}
+            alt={altText}
             width={imageSize}
             height={imageSize}
-            priority={priority}
+            loading={resolvedLoading}
+            {...restImageProps}
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center rounded-full">

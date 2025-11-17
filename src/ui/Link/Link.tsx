@@ -1,6 +1,11 @@
 import React, { forwardRef, JSX } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import NextLink from "next/link";
+import {
+  type PolymorphicComponentProps,
+  type PolymorphicComponentPropsWithRef,
+  type PolymorphicForwardRefComponent,
+  type PolymorphicRef,
+} from "../../types/polymorphic";
 
 const LinkStyles = tv({
   base: ["text-primary-700 dark:text-primary-500", "font-bold tracking-wide"],
@@ -8,16 +13,29 @@ const LinkStyles = tv({
 
 type LinkVariants = VariantProps<typeof LinkStyles>;
 
-export type LinkProps = React.ComponentPropsWithoutRef<typeof NextLink> &
-  LinkVariants;
+type LinkProps<C extends React.ElementType = "a"> = PolymorphicComponentProps<
+  C,
+  LinkVariants
+>;
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <NextLink ref={ref} className={LinkStyles({ className })} {...props} />
-    );
-  }
-);
+type LinkComponent = PolymorphicForwardRefComponent<
+  "a",
+  LinkVariants
+>;
+
+export const Link = forwardRef(function Link<
+  C extends React.ElementType = "a"
+>({ className, component, ...props }: PolymorphicComponentPropsWithRef<C, LinkVariants>, ref: React.ForwardedRef<unknown>) {
+  const Component = component ?? "a";
+
+  return (
+    <Component
+      ref={ref as PolymorphicRef<C>}
+      className={LinkStyles({ className })}
+      {...props}
+    />
+  );
+}) as LinkComponent;
 
 Link.displayName = "Link";
 

@@ -1,6 +1,5 @@
 import React, { forwardRef, JSX } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import NextImage, { ImageProps as NextImageProps } from "next/image";
 
 const FigureStyles = tv({
   base: "relative overflow-hidden rounded-lg",
@@ -8,22 +7,59 @@ const FigureStyles = tv({
 
 type FigureVariants = VariantProps<typeof FigureStyles>;
 
+type ImagePropOverrides = Omit<
+  React.ImgHTMLAttributes<HTMLImageElement>,
+  "src" | "alt" | "width" | "height"
+>;
+
 export type FigureProps = JSX.IntrinsicElements["figure"] &
-  FigureVariants &
-  Pick<NextImageProps, "src" | "alt" | "priority"> &
-  Required<Pick<NextImageProps, "width" | "height">>;
+  FigureVariants & {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    /**
+     * @summary Marks the image as high priority; maps to loading="eager" internally
+     */
+    priority?: boolean;
+    imageClassName?: string;
+    imageProps?: ImagePropOverrides;
+  };
 
 export const Figure = forwardRef<HTMLElement, FigureProps>(
-  ({ className, src, alt, width, height, priority, ...props }, ref) => {
+  (
+    {
+      className,
+      src,
+      alt,
+      width,
+      height,
+      priority,
+      imageClassName,
+      imageProps,
+      ...figureProps
+    },
+    ref
+  ) => {
+    const { loading, ...restImageProps } = imageProps ?? {};
+    const resolvedLoading = priority ? "eager" : loading;
+    const composedImageClassName = [
+      "absolute left-0 top-0 h-full w-full object-cover",
+      imageClassName,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
     return (
-      <figure ref={ref} className={FigureStyles({ className })} {...props}>
-        <NextImage
-          className="absolute left-0 top-0 h-full w-full object-cover"
+      <figure ref={ref} className={FigureStyles({ className })} {...figureProps}>
+        <img
+          className={composedImageClassName}
           src={src}
           alt={alt}
-          priority={priority}
           width={width}
           height={height}
+          loading={resolvedLoading}
+          {...restImageProps}
         />
       </figure>
     );
