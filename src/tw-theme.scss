@@ -1,10 +1,10 @@
-@import "tailwindcss";
-@import "./design-system/colors/periwinkle.scss";
-@import "./design-system/colors/pearl.scss";
-@import "./design-system/colors/emerald.scss";
-@import "./design-system/colors/sky.scss";
-@import "./design-system/colors/amber.scss";
-@import "./design-system/colors/milano-red.scss";
+@use "tailwindcss";
+@use "./design-system/colors/periwinkle";
+@use "./design-system/colors/pearl";
+@use "./design-system/colors/emerald";
+@use "./design-system/colors/sky";
+@use "./design-system/colors/amber";
+@use "./design-system/colors/milano-red";
 
 @theme {
   --color-base-100: var(--pearl-100);

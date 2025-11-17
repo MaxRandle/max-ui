@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $shade-map: (
   "100",
   "200",
@@ -108,10 +110,10 @@ $neutral-chroma-map: (
 
 @mixin map-color($color) {
   @each $shade in $shade-map {
-    --#{map-get($color, name)}-#{$shade}: oklch(
-      #{map-get($l-map, $shade)}
-        #{map-get(map-get($color, chromas), $shade)}
-        #{map-get(map-get($color, hues), $shade)}
+    --#{map.get($color, name)}-#{$shade}: oklch(
+      #{map.get($l-map, $shade)}
+        #{map.get(map.get($color, chromas), $shade)}
+        #{map.get(map.get($color, hues), $shade)}
     );
   }
 }
