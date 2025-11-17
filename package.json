@@ -24,7 +24,8 @@
     "build:types": "tsc --project tsconfig.build.json",
     "build": "npm run clean && npm run build:types && vite build",
     "preview": "vite preview",
-    "test": "echo \"No tests yet\""
+    "test": "echo \"No tests yet\"",
+    "prepare": "npm run build"
   },
   "keywords": [
     "react",
