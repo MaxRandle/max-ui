@@ -25,7 +25,7 @@
     "clean": "rimraf dist",
     "dev": "vite",
     "build:types": "tsc --project tsconfig.build.json",
-    "build": "npm run clean && npm run build:types && vite build",
+    "build": "npm run clean && vite build && npm run build:types",
     "preview": "vite preview",
     "test": "echo \"No tests yet\"",
     "prepare": "npm run build"
