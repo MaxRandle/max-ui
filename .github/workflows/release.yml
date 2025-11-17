@@ -30,7 +30,8 @@ jobs:
       - name: Pack tarball
         id: pack
         run: |
-          TARBALL=$(npm pack)
+          # Capture only the filename to avoid noisy npm output in GITHUB_OUTPUT
+          TARBALL=$(npm pack --json | jq -r '.[0].filename')
           echo "tarball=$TARBALL" >> "$GITHUB_OUTPUT"
 
       - name: Publish GitHub Release with tarball
